@@ -6,6 +6,7 @@ pipeline {
       REGISTRY_PASSWORD = "${env.DIGITEAM_REGISTRY_PASSWORD}"
       IMAGE_NAME = "${env.DIGITEAM_RESEARCH_IMAGE_NAME}"
       SECRET_REPO = "${env.SECRET_REPO}"
+      SECRET_LOCATION = "${env.DIGITEAM_BACKEND_RISET_SECRET_LOCATION}"
   }
   options {
     timeout(time: 1, unit: 'HOURS')
@@ -28,7 +29,7 @@ pipeline {
       steps {
         sh 'git clone $SECRET_REPO'
         dir ("$SECRET_LOCATION") {
-          sh 'sed -i \\"s/image:.*/image: $IMAGE_NAME-v1:$BUILD_NUMBER/g\\" digiteam-api-research-v1.yaml'
+          sh 'sed -i \\"s/image:.*/image: $IMAGE_NAME-v1:$BUILD_NUMBER/g\\" backend-v1/digiteam-api-research-v1.yaml'
           sh 'git checkout -b digiteam-backend-research-v1-$BUILD_NUMBER'
           sh 'git add digiteam-api-research-v1.yaml'
           sh 'git commit -m "Uptade Image Digiteam Backend Research to $BUILD_NUMBER"'

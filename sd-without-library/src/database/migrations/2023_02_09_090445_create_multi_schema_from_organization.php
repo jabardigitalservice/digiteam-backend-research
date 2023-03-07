@@ -37,7 +37,6 @@ return new class() extends Migration
 
         foreach ($organizations as $organization) {
             $schema = $organization->schema;
-            \DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
             \DB::statement("DROP SCHEMA IF EXISTS $schema CASCADE");
             $this->createSchema($schema);
 

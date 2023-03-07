@@ -27,6 +27,7 @@ pipeline {
     }
     stage('Update Deployment Image') {
       steps {
+        sh 'rm -rf jds-config'
         sh 'git clone $SECRET_REPO'
         dir ("$SECRET_LOCATION") {
           sh 'sed -i \\"s/image:.*/image: $IMAGE_NAME-v1:$BUILD_NUMBER/g\\" backend-v1/digiteam-api-research-v1.yaml'
@@ -35,6 +36,7 @@ pipeline {
           sh 'git commit -m "Uptade Image Digiteam Backend Research to $BUILD_NUMBER"'
           sh 'git push origin digiteam-backend-research-v1-$BUILD_NUMBER -o merge_request.description="# Overview \n\n - Digiteam Backend Research $BUILD_NUMBER \n\n ## Evidence \n\n - title: Update Digiteam Backend Research Image to $BUILD_NUMBER \n - project: Digiteam \n - participants:  " -o merge_request.create'
         }
+        sh 'rm -rf jds-config'
       }
     }
   }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Organization;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,7 +20,9 @@ class UserOrganizationSchemaMiddleware
     public function handle(Request $request, Closure $next)
     {
         $organizations = $request->user()->organization->pluck('schema')->toArray();
-        $schema = $request->schema;
+        $organizationRequest = Organization::where('slug', $request->organization)->first();
+
+        $schema = $organizationRequest?->schema;
         if (!in_array($schema, $organizations)) {
             return response()->format(Response::HTTP_FORBIDDEN, 'Permission Denied For Access Schema');
         }

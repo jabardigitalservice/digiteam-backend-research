@@ -1,6 +1,6 @@
 FROM node:lts-alpine AS node-chokidar
 WORKDIR /var/www/html
-COPY package.json .
+COPY src/package.json .
 RUN npm install
 
 FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
@@ -10,7 +10,7 @@ FROM alpine:edge
 LABEL Maintainer="Jabar Digital Service <digital.service@jabarprov.go.id>" \
     Description="Laravel Octane on Alpine Linux."
 
-ARG PHP_VERSION="8.2.2-r0"
+ARG PHP_VERSION="8.2.3-r0"
 
 # Install packages
 RUN apk --no-cache add php82=${PHP_VERSION} php82-opcache php82-openssl php82-curl php82-phar php82-session \
@@ -40,8 +40,7 @@ USER nobody
 
 # Add application
 WORKDIR /var/www/html
-# COPY --chown=nobody .env.example /var/www/html/.env
-COPY --chown=nobody . /var/www/html
+COPY --chown=nobody src/ /var/www/html
 
 # Install Roadrunner from the official image
 COPY --from=roadrunner /usr/bin/rr /usr/local/bin/rr
@@ -53,7 +52,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
     composer dump-autoload --optimize
 RUN composer require laravel/octane
-RUN php artisan key:generate
 
 # Expose the port app is reachable on
 EXPOSE 80

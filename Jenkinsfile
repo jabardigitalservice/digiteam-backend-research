@@ -12,7 +12,9 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps{
-        sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER -f sd-without-library/docker/Dockerfile .'
+        dir ('sd-without-library') {
+          sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER -f sd-without-library/docker/Dockerfile .'
+        }
       }
     }
     stage('Docker Push') {

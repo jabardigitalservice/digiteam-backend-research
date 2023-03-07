@@ -28,7 +28,7 @@ pipeline {
     }
     stage('Update Deployment Image') {
       steps {
-        sh 'rm -rf jds-config'60
+        sh 'rm -rf jds-config'
         sh 'git clone $SECRET_REPO'
         dir ("$SECRET_LOCATION") {
           sh 'sed -i "s/image:.*/image: $IMAGE_DEPLOY-v1:$BUILD_NUMBER/g" backend-v1/digiteam-api-research-v1.yaml'

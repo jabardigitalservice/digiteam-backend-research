@@ -8,6 +8,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
 class OrganizationController extends Controller
 {

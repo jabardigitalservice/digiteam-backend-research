@@ -31,7 +31,7 @@ pipeline {
         sh 'rm -rf jds-config'
         sh 'git clone $SECRET_REPO'
         dir ("$SECRET_LOCATION") {
-          sh 'sed -i "s/image:.*/image: $IMAGE_NAME-v1:$BUILD_NUMBER/g" backend-v1/digiteam-api-research-v1.yaml'
+          sh 'sed -i "s/image:.*/image: $IMAGE_DEPLOY-v1:$BUILD_NUMBER/g" backend-v1/digiteam-api-research-v1.yaml'
           sh 'git checkout -b digiteam-backend-research-v1-$BUILD_NUMBER'
           sh 'git add digiteam-api-research-v1.yaml'
           sh 'git commit -m "Uptade Image Digiteam Backend Research to $BUILD_NUMBER"'

@@ -8,7 +8,7 @@ on:
 
 jobs:
   trigger:
-    name: Call Jenkins
+    name: Trigger Backend Research v3
     runs-on: ubuntu-latest
     steps:
       - name: Call Jenkins

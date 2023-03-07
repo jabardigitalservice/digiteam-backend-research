@@ -37,7 +37,7 @@ pipeline {
           sh 'git config --global user.name "Github Action"'
           sh 'git add backend-v1/digiteam-api-research-v1.yaml'
           sh 'git commit -m "Update Image Digiteam Backend Research to $BUILD_NUMBER"'
-          sh 'git push origin digiteam-backend-research-v1-$BUILD_NUMBER -o merge_request.description="# Overview \n\n - Digiteam Backend Research $BUILD_NUMBER \n\n ## Evidence \n\n - title: Update Digiteam Backend Research Image to $BUILD_NUMBER \n - project: Digiteam \n - participants:  " -o merge_request.create'
+          sh 'git push origin digiteam-backend-research-v1-$BUILD_NUMBER -o merge_request.description=\\"# Overview \n\n - Digiteam Backend Research $BUILD_NUMBER \n\n ## Evidence \n\n - title: Update Digiteam Backend Research Image to $BUILD_NUMBER \n - project: Digiteam \n - participants:  \\" -o merge_request.create'
         }
         sh 'rm -rf jds-config'
       }

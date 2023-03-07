@@ -32,7 +32,7 @@ pipeline {
     stage('Deploy to JabarCloud') {
       steps {
         sh 'ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_HOST "cd digiteam && \
-        sed -i "s/image:.*/image: $IMAGE_DEPLOY-v1:$BUILD_NUMBER/g" digiteam-api-research-v1.yaml && \
+        sed -i \\"s/image:.*/image: $IMAGE_DEPLOY-v1:$BUILD_NUMBER/g\\" digiteam-api-research-v1.yaml && \
         ./update-config.sh"'
       }
     }

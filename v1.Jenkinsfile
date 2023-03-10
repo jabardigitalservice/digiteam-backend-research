@@ -18,7 +18,7 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps{
-        dir ('sd-without-library') {
+        dir ('v1-sd-without-library') {
           sh 'docker build -t $IMAGE_NAME-v1:$BUILD_NUMBER -f docker/Dockerfile .'
         }
       }

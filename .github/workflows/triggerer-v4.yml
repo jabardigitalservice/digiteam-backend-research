@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'architecture-v4/**'
+      - 'v4-md-without-library/**'
 
 jobs:
   trigger:

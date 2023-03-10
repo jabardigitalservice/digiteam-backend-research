@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps{
-        dir ('sd-without-library') {
+        dir ('v2-sd-with-library') {
           sh 'docker build -t $IMAGE_NAME-v2:$BUILD_NUMBER -f docker/Dockerfile .'
         }
       }

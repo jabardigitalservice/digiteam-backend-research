@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'sd-without-library/**'
+      - 'v1-sd-without-library/**'
 
 jobs:
   trigger:

@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'architecture-v2/**'
+      - 'v2-sd-with-library/**'
 
 jobs:
   trigger:

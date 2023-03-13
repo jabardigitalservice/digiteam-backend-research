@@ -23,5 +23,28 @@ pipeline {
         sh 'docker push $IMAGE_NAME-v2:$BUILD_NUMBER'
       }
     }
+    stage('Deploy to JabarCloud') {
+      steps {
+        sh 'ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_HOST "cd digiteam && \
+        sed -i \\"s/image:.*/image: $IMAGE_DEPLOY-v2:$BUILD_NUMBER/g\\" digiteam-api-research-v2.yaml && \
+        ./update-config.sh"'
+      }
+    }
+    stage('Update Deployment Image') {
+      steps {
+        sh 'rm -rf $SECRET_FOLDER'
+        sh 'git clone $SECRET_REPO'
+        dir ("$SECRET_LOCATION") {
+          sh 'sed -i "s/image:.*/image: $IMAGE_DEPLOY-v2:$BUILD_NUMBER/g" backend-v2/digiteam-api-research-v2.yaml'
+          sh 'git checkout -b digiteam-backend-research-v2-$BUILD_NUMBER'
+          sh 'git config --global user.email "github-action@github.com"'
+          sh 'git config --global user.name "Github Action"'
+          sh 'git add backend-v2/digiteam-api-research-v2.yaml'
+          sh 'git commit -m "Update Image Digiteam Backend Research to $BUILD_NUMBER"'
+          sh 'git push origin digiteam-backend-research-v2-$BUILD_NUMBER -o merge_request.description="# Overview \\n\\n - Digiteam Backend Research $BUILD_NUMBER \\n\\n ## Evidence \\n\\n - title: Update Digiteam Backend Research Image to $BUILD_NUMBER \\n - project: Digiteam \\n - participants:  " -o merge_request.create'
+        }
+        sh 'rm -rf $SECRET_FOLDER'
+      }
+    }
   }
 } 

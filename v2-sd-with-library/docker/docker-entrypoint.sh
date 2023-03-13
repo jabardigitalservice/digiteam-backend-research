@@ -7,8 +7,8 @@ env=${APP_ENV:-production}
 
 if [ "$env" != "local" ]; then
     echo "Setup configuration..."
-    cat /laravel_app_config > /var/www/html/.env
-    cat /run/secrets/laravel_app_secrets >> /var/www/html/.env
+    cat /v2_app_config > /var/www/html/.env
+    cat /run/secrets/v2_app_secrets >> /var/www/html/.env
     echo "Caching configuration..."
     php /var/www/html/artisan optimize
 fi

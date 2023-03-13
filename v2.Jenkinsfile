@@ -1,10 +1,16 @@
 pipeline {
   agent any
   environment {
+      SERVER_USERNAME = "${env.JDS_USER}"
+      SERVER_HOST = "${env.DIGITEAM_RESEARCH_HOST}"
       REGISTRY_URL = "${env.REGISTRY_URL}"
       REGISTRY_USERNAME = "${env.DIGITEAM_REGISTRY_USERNAME}"
       REGISTRY_PASSWORD = "${env.DIGITEAM_REGISTRY_PASSWORD}"
       IMAGE_NAME = "${env.DIGITEAM_RESEARCH_IMAGE_NAME}"
+      IMAGE_DEPLOY = "${env.DIGITEAM_RESEARCH_IMAGE_DEPLOY}"
+      SECRET_REPO = "${env.SECRET_REPO}"
+      SECRET_FOLDER = "${env.SECRET_FOLDER}"
+      SECRET_LOCATION = "${env.DIGITEAM_BACKEND_RISET_SECRET_LOCATION}"
   }
   options {
     timeout(time: 1, unit: 'HOURS')

@@ -25,7 +25,7 @@ pipeline {
     }
     stage('Deploy to JabarCloud') {
       steps {
-        sh 'ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_HOST "cd digiteam && \
+        sh 'ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_HOST "cd digiteam/backend-v2 && \
         sed -i \\"s/image:.*/image: $IMAGE_DEPLOY-v2:$BUILD_NUMBER/g\\" digiteam-api-research-v2.yaml && \
         ./update-config.sh"'
       }
